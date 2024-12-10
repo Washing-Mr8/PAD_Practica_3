@@ -8,8 +8,8 @@ const App = () => {
   const [selectedGenre, setSelectedGenre] = useState("");
 
   return (
-    <div>
-      <h1 class="title" >App de Libros</h1>
+    <div className="App">
+      <h1 className="title" >Buscador de Libros</h1>
       <BookSearch onSearch={setBooks}
         selectedGenre={selectedGenre}
         setSelectedGenre={setSelectedGenre}/>

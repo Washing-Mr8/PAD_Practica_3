@@ -38,10 +38,10 @@ const BookSearch = ({ onSearch, selectedGenre, setSelectedGenre }) => {
     };
 
     return (
-        <div class="search-container">
+        <div className="search-container">
             <div>
                 <select
-                    class="form-select"
+                    className="form-select"
                     id="genre"
                     value={selectedGenre}
                     onChange={(e) => setSelectedGenre(e.target.value)}
@@ -55,13 +55,13 @@ const BookSearch = ({ onSearch, selectedGenre, setSelectedGenre }) => {
                 </select>
             </div>
             <input
-                class="form-control"
+                className="form-control"
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Buscar libros..."
             />
-            <button class="btn" onClick={searchBooks}>Buscar</button>
+            <button className="btn" onClick={searchBooks}>Buscar</button>
         </div>
     );
 };
