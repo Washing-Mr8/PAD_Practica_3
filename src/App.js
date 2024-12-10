@@ -9,7 +9,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>App de Libros</h1>
+      <h1 class="title" >App de Libros</h1>
       <BookSearch onSearch={setBooks}
         selectedGenre={selectedGenre}
         setSelectedGenre={setSelectedGenre}/>

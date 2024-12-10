@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import '../css/SearchBooks.css';
+
 
 const API_KEY = 'AIzaSyDFSg3zY0wnytGWSO4Ch91a0k5aiLNKgbk';
 
@@ -36,10 +38,10 @@ const BookSearch = ({ onSearch, selectedGenre, setSelectedGenre }) => {
     };
 
     return (
-        <div>
+        <div class="search-container">
             <div>
-                <label htmlFor="genre">Seleccionar género: </label>
                 <select
+                    class="form-select"
                     id="genre"
                     value={selectedGenre}
                     onChange={(e) => setSelectedGenre(e.target.value)}
@@ -53,12 +55,13 @@ const BookSearch = ({ onSearch, selectedGenre, setSelectedGenre }) => {
                 </select>
             </div>
             <input
+                class="form-control"
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Buscar libros..."
             />
-            <button onClick={searchBooks}>Buscar</button>
+            <button class="btn" onClick={searchBooks}>Buscar</button>
         </div>
     );
 };

@@ -1,8 +1,9 @@
 import React from "react";
+import "../css/BookList.css"
 
 const BookList = ({ books }) => {
   return (
-    <div>
+    <div class="result-container">
     <h2>Resultados de la Búsqueda</h2>
     {books.length === 0 ? (
       <p>No hay resultados. Intenta realizar una búsqueda.</p>
