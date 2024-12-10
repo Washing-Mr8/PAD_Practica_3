@@ -1,7 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import './css/App.css';
+import BookSearch from'./components/SearchBooks.js';
+import BookList from './components/BookList.js';
 
-function App() {
+const App = () => {
+  const [books, setBooks] = useState([]);
+  const [selectedGenre, setSelectedGenre] = useState("");
+
+  return (
+    <div>
+      <h1>App de Libros</h1>
+      <BookSearch onSearch={setBooks}
+        selectedGenre={selectedGenre}
+        setSelectedGenre={setSelectedGenre}/>
+
+      <BookList books={books} />
+    </div>
+  );
+};
+export default App;
+
+  /*
   return (
     <div className="App">
       <header className="App-header">
@@ -20,6 +39,5 @@ function App() {
       </header>
     </div>
   );
-}
+  */
 
-export default App;
