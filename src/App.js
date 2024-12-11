@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import './css/App.css';
 import BookSearch from'./components/SearchBooks.js';
 import BookList from './components/BookList.js';
+import { FaBookReader } from "react-icons/fa";
+
 
 const App = () => {
   const [books, setBooks] = useState([]);
@@ -9,7 +11,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1 className="title" >Buscador de Libros</h1>
+      <h1 className="title" ><FaBookReader/>  Buscador de Libros</h1>
       <BookSearch onSearch={setBooks}
         selectedGenre={selectedGenre}
         setSelectedGenre={setSelectedGenre}/>

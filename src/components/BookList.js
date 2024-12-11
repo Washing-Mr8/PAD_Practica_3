@@ -1,5 +1,8 @@
 import React from "react";
 import "../css/BookList.css";
+import { FaInfoCircle } from "react-icons/fa";
+
+
 
 const BookList = ({ books }) => {
     return (
@@ -24,7 +27,7 @@ const BookList = ({ books }) => {
                                     <p className="card-text"><strong>Descripción:</strong> {book.volumeInfo.description}</p>
                                 )}
                                 {book.volumeInfo.infoLink && (
-                                    <a className="btn info" href={book.volumeInfo.infoLink}> Más información</a>
+                                    <a className="btn info" href={book.volumeInfo.infoLink}><FaInfoCircle /> Más información</a>
                                 )}
 
                             </div>

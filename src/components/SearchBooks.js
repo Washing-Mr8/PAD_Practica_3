@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import '../css/SearchBooks.css';
+import { FaSearch } from "react-icons/fa";
+
+
 
 
 const API_KEY = 'AIzaSyDFSg3zY0wnytGWSO4Ch91a0k5aiLNKgbk';
@@ -61,7 +64,7 @@ const BookSearch = ({ onSearch, selectedGenre, setSelectedGenre }) => {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Buscar libros..."
             />
-            <button className="btn" onClick={searchBooks}>Buscar</button>
+            <button className="btn" onClick={searchBooks}> <FaSearch/> Buscar</ button>
         </div>
     );
 };

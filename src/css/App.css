@@ -58,6 +58,8 @@
   background-color: #007bff;
   transition: background-color 0.2s ease;
   text-decoration: none;
+  vertical-align: middle;
+
 }
 
 .btn:hover {
