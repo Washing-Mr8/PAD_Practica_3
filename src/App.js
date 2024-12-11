@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './css/App.css';
 import BookSearch from'./components/SearchBooks.js';
 import BookList from './components/BookList.js';
@@ -41,5 +41,43 @@ export default App;
       </header>
     </div>
   );
+  */
+
+
+  /* POSIBLE IDEA
+    const App = () => {
+  const [query, setQuery] = useState('');
+  const [books, setBooks] = useState([]);
+  //estado ids libros favs
+  const [favorites, setFavorites] = useState([]);
+
+  //favoritos de localstorage al cargar
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem('favorites');
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites));
+    }
+  }, []);
+
+  //me guardo favs cuando cambie
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  //agregar libro a fav
+  const addToFavorites = (bookId) => {
+    setFavorites([...favorites, bookId]);
+  };
+
+  return (
+    <div className="App">
+      <h1 className="title"><FaBookReader />  Buscador de Libros</h1>
+      <BookSearch onSearch={setBooks} selectedGenre={selectedGenre} setSelectedGenre={setSelectedGenre} />
+      <BookList books={books} favorites={favorites} addToFavorites={addToFavorites} />
+    </div>
+  );
+};
+
+export default App;
   */
 

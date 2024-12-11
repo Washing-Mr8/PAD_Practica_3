@@ -29,7 +29,11 @@ const BookList = ({ books }) => {
                                 {book.volumeInfo.infoLink && (
                                     <a className="btn info" href={book.volumeInfo.infoLink}><FaInfoCircle /> Más información</a>
                                 )}
-
+                                 {favorites.includes(book.id) ? (
+                                <span>Favorito</span>
+                                ) : (
+                                <button onClick={() => addToFavorites(book.id)}>Añadir a Favoritos</button>
+                                )}
                             </div>
                         </div>
                     ))}
