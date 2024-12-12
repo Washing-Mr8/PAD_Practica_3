@@ -22,23 +22,25 @@ const BookSearch = ({ onSearch, selectedGenre, setSelectedGenre }) => {
 
     const searchBooks = async () => {
         try {
-            const baseQuery = query || ""; // Si query está vacío, usa una cadena vacía
+            const baseQuery = query || ""; 
             const genreQuery = selectedGenre ? `+subject:${selectedGenre}` : "";
-            const finalQuery = `${baseQuery}${genreQuery}` || "books"; // Si ambas están vacías, usa "books"
-
+            const finalQuery = `${baseQuery}${genreQuery}` || "books";
+    
             const response = await axios.get(
                 `https://www.googleapis.com/books/v1/volumes?q=${finalQuery}&key=${API_KEY}`
             );
             const books = response.data.items || [];
             onSearch(books);
-            // Guardar últimos 5 libros consultados en localStorage
+    
+            // Guardar los últimos 5 libros consultados en localStorage
             const recentBooks = JSON.parse(localStorage.getItem("recentBooks")) || [];
-            const updatedBooks = [query, ...recentBooks].slice(0, 5);
+            const updatedBooks = [...books, ...recentBooks].slice(0, 5); // Limitar a 5
             localStorage.setItem("recentBooks", JSON.stringify(updatedBooks));
         } catch (error) {
             console.error("Error al buscar libros:", error);
         }
     };
+    
 
     return (
         <div className="search-container">
