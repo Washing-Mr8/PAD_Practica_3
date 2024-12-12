@@ -22,24 +22,28 @@ const BookSearch = ({ onSearch, selectedGenre, setSelectedGenre }) => {
 
     const searchBooks = async () => {
         try {
-            const baseQuery = query || ""; 
-            const genreQuery = selectedGenre ? `+subject:${selectedGenre}` : "";
-            const finalQuery = `${baseQuery}${genreQuery}` || "books";
-    
-            const response = await axios.get(
-                `https://www.googleapis.com/books/v1/volumes?q=${finalQuery}&key=${API_KEY}`
-            );
-            const books = response.data.items || [];
-            onSearch(books);
-    
-            // Guardar los últimos 5 libros consultados en localStorage
-            const recentBooks = JSON.parse(localStorage.getItem("recentBooks")) || [];
-            const updatedBooks = [...books, ...recentBooks].slice(0, 5); // Limitar a 5
-            localStorage.setItem("recentBooks", JSON.stringify(updatedBooks));
+          const baseQuery = query || ""; 
+          const genreQuery = selectedGenre ? `+subject:${selectedGenre}` : "";
+          const finalQuery = `${baseQuery}${genreQuery}` || "books";
+      
+          const response = await axios.get(
+            `https://www.googleapis.com/books/v1/volumes?q=${finalQuery}&key=${API_KEY}`
+          );
+          const books = response.data.items || [];
+          onSearch(books);
+      
+          //guarda búsquedas recientes en el Service Worker
+          if (navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({
+              type: 'SAVE_RECENT_SEARCHES',
+              payload: books.slice(0, 5) //limitar a 5 libros
+            });
+          }
         } catch (error) {
-            console.error("Error al buscar libros:", error);
+          console.error("Error al buscar libros:", error);
         }
     };
+      
     
 
     return (

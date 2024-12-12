@@ -9,27 +9,45 @@ const App = () => {
   const [selectedGenre, setSelectedGenre] = useState("");
   const [favorites, setFavorites] = useState([]);
 
-  //recuperar favs localStorage 
+  //registrar Service Worker
   useEffect(() => {
-    const storedFavorites = localStorage.getItem("favorites");
-    if (storedFavorites) {
-      setFavorites(JSON.parse(storedFavorites));
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(() => console.log('Service Worker registrado correctamente.'))
+        .catch((error) => console.error('Error al registrar el Service Worker:', error));
     }
   }, []);
 
-  //guardar favs en localStorage
+  //recuperar favoritos del Service Worker al cargar
   useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
+    if (navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({ type: 'GET_FAVORITES' });
+      navigator.serviceWorker.onmessage = (event) => {
+        if (event.data.type === 'FAVORITES') {
+          setFavorites(event.data.payload);
+        }
+      };
+    }
+  }, []);
+
+  //enviar favoritos al Service Worker cuando cambien
+  useEffect(() => {
+    if (navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({
+        type: 'SAVE_FAVORITES',
+        payload: favorites
+      });
+    }
   }, [favorites]);
 
-  //agregar libro fav
+  //agregar libro a favs
   const addToFavorites = (bookId) => {
     if (!favorites.includes(bookId)) {
       setFavorites([...favorites, bookId]);
     }
   };
 
-  //eliminar un fav
+  //eliminar libro de favs
   const removeFromFavorites = (bookId) => {
     setFavorites(favorites.filter((id) => id !== bookId));
   };
