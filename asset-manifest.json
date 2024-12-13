@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.c8c5205c.css",
-    "main.js": "/static/js/main.88515eb5.js",
-    "static/media/pad_icon.svg": "/static/media/pad_icon.8671f5b14c8dbf74ec106bb53f2fbefb.svg",
-    "index.html": "/index.html",
-    "main.c8c5205c.css.map": "/static/css/main.c8c5205c.css.map",
-    "main.88515eb5.js.map": "/static/js/main.88515eb5.js.map"
+    "main.css": "/PAD_Practica_3/static/css/main.c8c5205c.css",
+    "main.js": "/PAD_Practica_3/static/js/main.91bc51d5.js",
+    "static/media/pad_icon.svg": "/PAD_Practica_3/static/media/pad_icon.8671f5b14c8dbf74ec106bb53f2fbefb.svg",
+    "index.html": "/PAD_Practica_3/index.html",
+    "main.c8c5205c.css.map": "/PAD_Practica_3/static/css/main.c8c5205c.css.map",
+    "main.91bc51d5.js.map": "/PAD_Practica_3/static/js/main.91bc51d5.js.map"
   },
   "entrypoints": [
     "static/css/main.c8c5205c.css",
-    "static/js/main.88515eb5.js"
+    "static/js/main.91bc51d5.js"
   ]
 }
