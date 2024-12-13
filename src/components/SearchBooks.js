@@ -29,23 +29,17 @@ const BookSearch = ({ onSearch, selectedGenre, setSelectedGenre }) => {
       );
       let books = response.data.items || [];
 
-      if (books.length === 0) {
-        localStorage.removeItem("recentBooks"); 
-      } 
-      else { //si hay resultados
+      books = books.slice(0, 5);
+      let recentBooks = JSON.parse(localStorage.getItem("recentBooks")) || [];
 
-        books = books.slice(0, 5);
-        let recentBooks = JSON.parse(localStorage.getItem("recentBooks")) || [];
-
-        books.forEach((book) => {
-          if (!recentBooks.some((b) => b.id === book.id)) {
-            recentBooks.unshift(book); // agregamos nuevos libros al principio de la lista
-          }
-        });
-        localStorage.removeItem("recentBooks"); //quitamos los antiguos 5
-        recentBooks = recentBooks.slice(0,5);
-        localStorage.setItem("recentBooks", JSON.stringify(recentBooks));
-      }
+      books.forEach((book) => {
+        if (!recentBooks.some((b) => b.id === book.id)) {
+          recentBooks.unshift(book); // agregamos nuevos libros al principio de la lista
+        }
+      });
+      localStorage.removeItem("recentBooks"); //quitamos los antiguos 5
+      recentBooks = recentBooks.slice(0,5);
+      localStorage.setItem("recentBooks", JSON.stringify(recentBooks));
 
       onSearch(books);
     } catch (error) {

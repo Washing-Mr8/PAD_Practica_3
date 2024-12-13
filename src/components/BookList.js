@@ -30,7 +30,7 @@ const BookList = ({
         <>
           <p>
             {" "}
-            Prueba a buscar un libro
+            Sin resultados. Prueba a buscar un libro
           </p>
           {recentBooks.length === 0 ? (
             <p>No hay libros recientes.</p>
