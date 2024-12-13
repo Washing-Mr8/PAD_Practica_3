@@ -1,2 +1,71 @@
-if(!self.define){let e,c={};const i=(i,o)=>(i=new URL(i+".js",o).href,c[i]||new Promise((c=>{if("document"in self){const e=document.createElement("script");e.src=i,e.onload=c,document.head.appendChild(e)}else e=i,importScripts(i),c()})).then((()=>{let e=c[i];if(!e)throw new Error(`Module ${i} didn’t register its module`);return e})));self.define=(o,r)=>{const n=e||("document"in self?document.currentScript.src:"")||location.href;if(c[n])return;let t={};const s=e=>i(e,n),d={module:{uri:n},exports:t,require:s};c[n]=Promise.all(o.map((e=>d[e]||s(e)))).then((e=>(r(...e),t)))}}define(["./workbox-a7e13a4a"],(function(e){"use strict";self.addEventListener("message",(e=>{e.data&&"SKIP_WAITING"===e.data.type&&self.skipWaiting()})),e.precacheAndRoute([{url:"favicon.ico",revision:"c92b85a5b907c70211f4ec25e29a8c4a"},{url:"index.html",revision:"61ce8b3e3ac58d33cc9dcf52e203866f"},{url:"logo192.png",revision:"33dbdd0177549353eeeb785d02c294af"},{url:"logo512.png",revision:"917515db74ea8d1aee6a246cfbcc0b45"},{url:"manifest.json",revision:"1f3b600791647d89bcc6021dc1876944"},{url:"robots.txt",revision:"61c27d2cd39a713f7829422c3d9edcc7"}],{ignoreURLParametersMatching:[/^utm_/,/^fbclid$/]})}));
-//# sourceMappingURL=sw.js.map
+const CACHE_NAME = 'my-app-cache-v1';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/favicon.ico',
+  '/logo192.png',
+  '/logo512.png',
+  '/manifest.json',
+];
+
+let favorites = []; //almacena los favs
+
+//instalar Service Worker y cachear 
+self.addEventListener('install', (event) => {
+  console.log('[Service Worker] Install');
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('[Service Worker] Caching app resources');
+      return cache.addAll(urlsToCache);
+    })
+  );
+  self.skipWaiting();
+});
+
+//activar el Service Worker y limpiar antigua cache
+self.addEventListener('activate', (event) => {
+  console.log('[Service Worker] Activate');
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cache) => {
+          if (cache !== CACHE_NAME) {
+            console.log('[Service Worker] Deleting old cache:', cache);
+            return caches.delete(cache);
+          }
+        })
+      );
+    })
+  );
+  self.clients.claim();
+});
+
+//interceptar solicitudes para usar desde la caché
+self.addEventListener('fetch', (event) => {
+  console.log('[Service Worker] Fetching:', event.request.url);
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
+  );
+});
+
+//manejar mensajes
+self.addEventListener('message', (event) => {
+  console.log('[Service Worker] Message received:', event.data);
+  const { type, payload } = event.data;
+
+  switch (type) {
+    case 'GET_FAVORITES':
+      event.source.postMessage({ type: 'FAVORITES', payload: favorites });
+      break;
+
+    case 'SAVE_FAVORITES':
+      favorites = payload;
+      console.log('[Service Worker] Favorites updated:', favorites);
+      break;
+
+    default:
+      console.warn('[Service Worker] Unknown message type:', type);
+  }
+});
