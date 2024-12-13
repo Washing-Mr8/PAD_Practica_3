@@ -28,12 +28,13 @@
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    background-color: #fff;
     background-size: 16px 12px;
     border: 1px solid #495057;
     border-radius: 0.25rem;
     box-sizing: border-box; 
 }
+
+
 
 /* Pantallas medianas */
 @media (max-width: 768px) {

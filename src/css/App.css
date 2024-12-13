@@ -4,6 +4,20 @@
   margin: 0;
 }
 
+body {
+  background-color: #cbfbe6; /* Color del fondo */
+}
+
+.title-container{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.pad-logo{
+  width: 40px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
