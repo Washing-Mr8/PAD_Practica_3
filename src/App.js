@@ -12,7 +12,7 @@ const App = () => {
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
-        .register("${process.env.PUBLIC_URL}/sw.js")
+        .register(process.env.PUBLIC_URL + "/sw.js")
         .then(() => console.log("Service Worker registrado correctamente."))
         .catch((error) =>
           console.error("Error al registrar el Service Worker:", error)
